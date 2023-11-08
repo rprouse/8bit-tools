@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "bin2hex": {
+      "commandName": "Project",
+      "commandLineArgs": "file.com"
+    }
+  }
+}
