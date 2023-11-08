@@ -2,7 +2,7 @@
   "profiles": {
     "bin2hex": {
       "commandName": "Project",
-      "commandLineArgs": "--help"
+      "commandLineArgs": "D:\\src\\Retro\\Z80\\RC2014\\asm\\learning\\chap04\\bin\\8BitAdd.com -a 0x0100"
     }
   }
 }

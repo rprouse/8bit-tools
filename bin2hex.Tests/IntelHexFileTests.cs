@@ -24,6 +24,13 @@ public class IntelHexFileTests
     }
 
     [Test]
+    public void LongCreateRecord_ThrowsArgumentException()
+    {
+        Action act = () => IntelHexFile.CreateRecord(HexRecordType.Data, 0x0000, new byte[256]);
+        act.Should().Throw<ArgumentException>();
+    }
+
+    [Test]
     public void CanConvertBinaryToHex()
     {
         byte[] binary = new byte[]

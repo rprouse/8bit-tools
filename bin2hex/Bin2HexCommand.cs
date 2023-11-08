@@ -5,7 +5,7 @@ using Spectre.Console.Cli;
 
 namespace bin2hex;
 
-internal sealed class Bin2HexCommand : Command<Bin2HexCommand.Settings>
+public sealed class Bin2HexCommand : Command<Bin2HexCommand.Settings>
 {
     public sealed class Settings : CommandSettings
     {
@@ -25,13 +25,19 @@ internal sealed class Bin2HexCommand : Command<Bin2HexCommand.Settings>
 
     public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
     {
-        var input = settings.Input;
-        var output = settings.Output.IsSet ? settings.Output.Value : Path.GetFileNameWithoutExtension(settings.Input) + ".hex";
-        var address = settings.Address.IsSet ? settings.Address.Value : 0x0000;
+        string input = settings.Input;
+        string output = settings.Output.IsSet ? settings.Output.Value : HexFileFromInput(settings.Input);
+        ushort address = settings.Address.IsSet ? settings.Address.Value : (ushort)0x0000;
         
         AnsiConsole.MarkupLine($"Converting [cyan]{input}[/] => [cyan]{output}[/] starting at address [cyan]0x{address:X4}[/]");
 
-        // Do something with the arguments
+        var bytes = File.ReadAllBytes(input);
+        var hex = IntelHexFile.ConvertBinaryToHex(bytes, address);
+        File.WriteAllText(output, hex);
+
         return 0;
     }
+
+    public static string HexFileFromInput(string input) =>
+        Path.Combine(Path.GetDirectoryName(input) ?? "", Path.GetFileNameWithoutExtension(input) + ".hex");
 }
