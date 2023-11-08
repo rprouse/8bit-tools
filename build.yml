@@ -1,0 +1,35 @@
+name: Build and Test
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-test:
+    runs-on: ${{ matrix.os }}
+
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: ⚡ Setup .NET Core
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: '5.0.x'
+
+    - name: 📦 Restore dependencies
+      run: dotnet restore
+
+    - name: 🤖 Build
+      run: dotnet build -c Release
+
+    - name: ✅ Test
+      run: dotnet test -c Release
+
+    - name: 💾 Publish
+      run: dotnet publish .\bin2hex\bin2hex.csproj /p:PublishSingleFile=true /p:UseAppHost=true /p:PublishTrimmed=true -c Release --self-contained -r ${{ matrix.os == 'windows-latest' && 'win-x64' || 'linux-x64' }}
