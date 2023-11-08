@@ -1,6 +1,8 @@
 using System.ComponentModel;
 using System.Globalization;
 
+namespace bin2hex;
+
 public class HexStringToUShortTypeConverter : TypeConverter
 {
     public override bool CanConvertFrom(ITypeDescriptorContext? context, Type sourceType) =>

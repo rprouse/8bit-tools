@@ -1,7 +1,9 @@
-﻿using System.ComponentModel;
+using System.ComponentModel;
 using System.Diagnostics.CodeAnalysis;
 using Spectre.Console;
 using Spectre.Console.Cli;
+
+namespace bin2hex;
 
 internal sealed class Bin2HexCommand : Command<Bin2HexCommand.Settings>
 {
@@ -20,6 +22,7 @@ internal sealed class Bin2HexCommand : Command<Bin2HexCommand.Settings>
         [CommandOption("-o|--output [OUTPUT]")]
         public FlagValue<string> Output { get; set; } = new FlagValue<string>();
     }
+
     public override int Execute([NotNull] CommandContext context, [NotNull] Settings settings)
     {
         var input = settings.Input;

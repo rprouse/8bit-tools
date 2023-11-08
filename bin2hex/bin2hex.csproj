@@ -6,7 +6,12 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
     <Version>0.1.0</Version>
+    <DefaultNamespace>bin2hex</DefaultNamespace>
   </PropertyGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include=">bin2hex.Tests" />    
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Spectre.Console.Analyzer" Version="0.47.0">
